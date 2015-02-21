@@ -1,0 +1,33 @@
+1.
+select name from member,book,checkout_item where member.id=checkout_item.member_id AND book.id=checkout_item.book_id AND book.title='The Hobbit';
+Output ::—> Anand Beck
+
+2.
+select distinct count (*) from member where id not in (Select distinct member_id from checkout_item);
+Output ::—> 37
+
+3.
+select book.title from book where book.id not in (select distinct book_id from checkout_item where book_id is not null) union select movie.title from movie,checkout_item where movie.id not in (select distinct movie_id from checkout_item where movie_id is not null);
+Output ::—>
+1984
+Catcher in the Rye
+Crouching Tiger, Hidden Dragon
+Domain Driven Design
+Fellowship of the Ring
+Lawrence of Arabia
+Office Space
+Thin Red Line
+To Kill a Mockingbird
+Tom Sawyer
+
+4.
+insert into member values(43,'Diana');
+insert into book values(11,'The Pragmatic Programmer');
+insert into checkout_item values(43,11,null);
+select name from member,book,checkout_item where member.id=checkout_item.member_id AND book.id=checkout_item.book_id AND book.title='The Pragmatic Programmer';
+Output ::—> Diana
+
+5. select name from member,checkout_item where member.id=checkout_item.member_id GROUP BY(checkout_item.member_id) having count(*)>1;
+Output ::—>
+Anand Beck
+Frank Smith
